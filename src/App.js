@@ -19,6 +19,11 @@ function App() {
     todo.complete = !todo.complete
     setTodos(newTodos)
   }
+  function handleClearTodos() {
+    const newTodos = todos.filter(todo =>
+      !todo.complete)
+    setTodos(newTodos)
+  }
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos))
@@ -34,12 +39,14 @@ function App() {
     todoNameRef.current.value = null
   }
 
+
   return (
     <>
     < TodoList todos={todos} toggleTodo={toggleTodo} />
     <input ref={todoNameRef} type="text" />
     <button onClick={handleAddTodo}>Add Todo</button>
-    <button>Clear Completed Todos</button>
+    <button onClick={handleClearTodos}>Clear Completed Todos</button>
+
     <div>{todos.filter(todo => !todo.complete).length} left to do</div>
     </>
   )
